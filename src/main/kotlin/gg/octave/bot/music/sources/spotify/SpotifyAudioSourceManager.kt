@@ -25,6 +25,7 @@
 package gg.octave.bot.music.sources.spotify
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
@@ -72,7 +73,7 @@ class SpotifyAudioSourceManager(
 
     override fun shutdown() = httpInterfaceManager.close()
 
-    override fun loadItem(manager: AudioPlayerManager, reference: AudioReference): AudioItem? {
+    override fun loadItem(manager: DefaultAudioPlayerManager, reference: AudioReference): AudioItem? {
         return try {
             loadItemOnce(manager, reference.identifier)
         } catch (exception: FriendlyException) {

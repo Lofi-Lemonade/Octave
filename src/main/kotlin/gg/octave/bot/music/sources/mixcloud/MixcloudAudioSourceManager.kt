@@ -1,6 +1,7 @@
 package gg.octave.bot.music.sources.mixcloud
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager
 import com.sedmelluq.discord.lavaplayer.tools.ExceptionTools
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
@@ -33,7 +34,7 @@ class MixcloudAudioSourceManager : AudioSourceManager, HttpConfigurable {
 
     override fun getSourceName() = "mixcloud"
 
-    override fun loadItem(manager: AudioPlayerManager, reference: AudioReference): AudioItem? {
+    override fun loadItem(manager: DefaultAudioPlayerManager, reference: AudioReference): AudioItem? {
         val matcher = URL_REGEX.matcher(reference.identifier)
 
         if (!matcher.matches()) {
