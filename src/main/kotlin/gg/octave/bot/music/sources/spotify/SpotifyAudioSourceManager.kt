@@ -86,7 +86,7 @@ class SpotifyAudioSourceManager(
         }
     }
 
-    private fun loadItemOnce(manager: AudioPlayerManager, identifier: String): AudioItem? {
+    private fun loadItemOnce(manager: DefaultAudioPlayerManager, identifier: String): AudioItem? {
         for (loader in loaders) {
             val matcher = loader.pattern().matcher(identifier)
 
@@ -98,11 +98,11 @@ class SpotifyAudioSourceManager(
         return null
     }
 
-    internal fun doYoutubeSearch(manager: AudioPlayerManager, identifier: String): AudioItem? {
+    internal fun doYoutubeSearch(manager: DefaultAudioPlayerManager, identifier: String): AudioItem? {
         return youtubeAudioSourceManager.loadItem(manager, AudioReference("ytsearch:$identifier", null))
     }
 
-    internal fun queueYoutubeSearch(manager: AudioPlayerManager, identifier: String): CompletableFuture<AudioItem?> {
+    internal fun queueYoutubeSearch(manager: DefaultAudioPlayerManager, identifier: String): CompletableFuture<AudioItem?> {
         return CompletableFuture.supplyAsync({ doYoutubeSearch(manager, identifier) }, trackLoaderPool)
     }
 

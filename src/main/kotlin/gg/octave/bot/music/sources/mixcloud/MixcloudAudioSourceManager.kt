@@ -189,7 +189,7 @@ class MixcloudAudioSourceManager : AudioSourceManager, HttpConfigurable {
     }
 
     private fun buildTrackObject(uri: String, identifier: String, title: String, uploader: String, isStream: Boolean, duration: Long): MixcloudAudioTrack {
-        return MixcloudAudioTrack(AudioTrackInfo(title, uploader, duration, identifier, isStream, uri), this)
+        return MixcloudAudioTrack(AudioTrackInfo(title, uploader, duration, identifier, isStream, uri, null), this)
     }
 
     private fun makeHttpRequest(request: HttpUriRequest): CloseableHttpResponse {

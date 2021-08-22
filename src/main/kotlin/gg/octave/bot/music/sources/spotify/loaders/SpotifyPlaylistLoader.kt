@@ -25,6 +25,7 @@
 package gg.octave.bot.music.sources.spotify.loaders
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.track.*
 import gg.octave.bot.music.sources.spotify.SpotifyAudioSourceManager
 import org.apache.http.HttpStatus
@@ -36,7 +37,7 @@ import java.util.regex.Matcher
 class SpotifyPlaylistLoader : Loader {
     override fun pattern() = PLAYLIST_PATTERN
 
-    override fun load(manager: AudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem? {
+    override fun load(manager: DefaultAudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem? {
         val playlistId = matcher.group(2)
         val playlistInfo = fetchPlaylistInfo(sourceManager, playlistId)
         val playlistTracks = fetchPlaylistTracks(manager, sourceManager, playlistId)
@@ -56,7 +57,7 @@ class SpotifyPlaylistLoader : Loader {
         }
     }
 
-    private fun fetchPlaylistTracks(manager: AudioPlayerManager,
+    private fun fetchPlaylistTracks(manager: DefaultAudioPlayerManager,
                                     sourceManager: SpotifyAudioSourceManager, playlistId: String): List<AudioTrack> {
         return sourceManager.request("https://api.spotify.com/v1/playlists/$playlistId/tracks").use {
             check(it.statusLine.statusCode == HttpStatus.SC_OK) {

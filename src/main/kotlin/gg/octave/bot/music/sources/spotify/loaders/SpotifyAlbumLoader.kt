@@ -25,6 +25,7 @@
 package gg.octave.bot.music.sources.spotify.loaders
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.track.AudioItem
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
@@ -40,7 +41,7 @@ import java.util.regex.Matcher
 class SpotifyAlbumLoader : Loader {
     override fun pattern() = ALBUM_PATTERN
 
-    override fun load(manager: AudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem {
+    override fun load(manager: DefaultAudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem {
         val albumId = matcher.group(2)
         val albumInfo = fetchAlbumInfo(sourceManager, albumId)
 
@@ -66,7 +67,7 @@ class SpotifyAlbumLoader : Loader {
         }
     }
 
-    private fun fetchAlbumTracks(manager: AudioPlayerManager,
+    private fun fetchAlbumTracks(manager: DefaultAudioPlayerManager,
                                  sourceManager: SpotifyAudioSourceManager, jsonTracks: JSONArray): List<AudioTrack> {
         val tasks = mutableListOf<CompletableFuture<AudioTrack?>>()
 
