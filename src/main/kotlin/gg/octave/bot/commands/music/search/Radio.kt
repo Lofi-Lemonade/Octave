@@ -54,7 +54,7 @@ class Radio : Cog {
                 setDescription(
                     buildString {
                         appendLine("Stream random songs from radio stations!")
-                        appendLine("Select and stream a station using `${ctx.trigger}radio <station name>`.")
+                        appendLine("Select and stream a station using `${ctx.trigger}radio dfm <station name>`.")
                         append("Stop streaming songs from a station with `${ctx.trigger}radio stop`,")
                     }
                 )
