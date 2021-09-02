@@ -189,7 +189,7 @@ class Play : Cog {
             }
 
             val trackContext = TrackContext(ctx.author.idLong, ctx.textChannel!!.idLong)
-            val footnote = if (!isSearchResult) "You can search and pick results using ${config.prefix}youtube or ${config.prefix}soundcloud while in a channel." else null
+            val footnote = if (!isSearchResult) "You can search and pick results using ${ctx.trigger}youtube or ${ctx.trigger}soundcloud while in a channel." else null
             LoadResultHandler.loadItem(query, ctx, manager, trackContext, isNext, isShuffle != null, footnote)
         }
 
