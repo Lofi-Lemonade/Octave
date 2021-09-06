@@ -71,17 +71,21 @@ class CachingSourceManager : AudioSourceManager {
 
         totalHits++
 
-        jedisPool.resource.use {
-            val encoded = it.get(reference.identifier)
-                ?: return null
+        try {
+            jedisPool.resource.use {
+                val encoded = it.get(reference.identifier)
+                    ?: return null
 
-            successfulHits++
+                successfulHits++
 
-            if (encoded.startsWith('{')) { // JSON object representing a playlist.
-                return Launcher.players.playerManager.decodePlaylist(encoded)
+                if (encoded.startsWith('{')) { // JSON object representing a playlist.
+                    return Launcher.players.playerManager.decodePlaylist(encoded)
+                }
+
+                return Launcher.players.playerManager.decodeAudioTrack(encoded)
             }
-
-            return Launcher.players.playerManager.decodeAudioTrack(encoded)
+        } catch (e: Throwable) {
+            return null
         }
     }
 
