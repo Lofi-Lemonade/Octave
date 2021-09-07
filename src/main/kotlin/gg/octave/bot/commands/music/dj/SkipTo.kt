@@ -26,6 +26,7 @@ package gg.octave.bot.commands.music.dj
 
 import gg.octave.bot.entities.framework.DJ
 import gg.octave.bot.entities.framework.MusicCog
+import gg.octave.bot.entities.framework.Usages
 import gg.octave.bot.utils.extensions.config
 import gg.octave.bot.utils.extensions.manager
 import gg.octave.bot.utils.extensions.removeAt
@@ -38,7 +39,8 @@ class SkipTo : MusicCog {
     override fun requirePlayer() = true
 
     @DJ
-    @Command(aliases = ["skt"], description = "Skip the current music track.")
+    @Command(aliases = ["skt"], description = "Skip to a track in the queue.")
+    @Usages("4")
     fun skipTo(ctx: Context, where: Int?) {
         val manager = ctx.manager
 

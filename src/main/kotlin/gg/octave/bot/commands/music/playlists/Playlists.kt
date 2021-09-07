@@ -318,7 +318,10 @@ class Playlists : Cog {
                     setDescription(
                         "There are no collaborators for this playlist.\n" +
                         "Run this command again but with a user mention/user ID to add someone.\n" +
-                        "You can have up to 3 collaborators."
+                        "You can have up to 3 collaborators.\n\n" +
+                        "If you're trying to add/remove collaborators and are seeing this message, " +
+                        "make sure your playlist title is wrapped in quotations (e.g. `\"lofi favourites\"`) " +
+                        "otherwise the bot will interpret subsequent words as your user argument."
                     )
                 } else {
                     val collaborators = playlist.collaboratorIds.joinToString("\n") { "**<@$it>** ($it)" }
