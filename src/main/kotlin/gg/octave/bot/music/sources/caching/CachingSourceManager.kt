@@ -25,7 +25,6 @@
 package gg.octave.bot.music.sources.caching
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager
 import com.sedmelluq.discord.lavaplayer.track.*
 import gg.octave.bot.Launcher
@@ -64,7 +63,7 @@ class CachingSourceManager : AudioSourceManager {
 
     override fun isTrackEncodable(track: AudioTrack) = false
 
-    override fun loadItem(manager: DefaultAudioPlayerManager, reference: AudioReference): AudioItem? {
+    override fun loadItem(manager: AudioPlayerManager, reference: AudioReference): AudioItem? {
         if (jedisPool.isClosed) {
             return null
         }

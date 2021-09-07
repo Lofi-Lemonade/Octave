@@ -41,6 +41,6 @@ interface Loader {
     /**
      * Loads an AudioItem from the given regex match.
      */
-    fun load(manager: DefaultAudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem?
+    fun load(manager: AudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem?
 
 }

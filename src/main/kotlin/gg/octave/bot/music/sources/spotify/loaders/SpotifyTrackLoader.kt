@@ -36,7 +36,7 @@ import java.util.regex.Matcher
 class SpotifyTrackLoader : Loader {
     override fun pattern() = TRACK_PATTERN
 
-    override fun load(manager: DefaultAudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem? {
+    override fun load(manager: AudioPlayerManager, sourceManager: SpotifyAudioSourceManager, matcher: Matcher): AudioItem? {
         val trackId = matcher.group(2)
         val spotifyTrack = fetchTrackInfo(sourceManager, trackId)
         val trackArtists = spotifyTrack.getJSONArray("artists")
