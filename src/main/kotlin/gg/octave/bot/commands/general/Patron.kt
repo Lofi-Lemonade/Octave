@@ -164,7 +164,10 @@ class Patron : Cog {
         val premiumGuild = ctx.db.getPremiumGuild(ctx.guild!!.id)
 
         if (premiumGuild != null) {
-            return ctx.send("This server already has premium status, redeemed by <@${premiumGuild.redeemerId}>")
+            return ctx.send {
+                setColor(OctaveBot.PRIMARY_COLOUR)
+                setDescription("This server already has premium status, redeemed by <@${premiumGuild.redeemerId}>")
+            }
         }
 
         val profile = ctx.db.getPremiumUser(ctx.author.id)

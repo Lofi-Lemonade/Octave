@@ -67,7 +67,7 @@ class Radio : Cog {
         // classic -> classical
         val library = stationsList.firstOrNull { it.contains(query) }
             ?: stationsList.minByOrNull { StringUtils.getLevenshteinDistance(it, query) }
-            ?: return ctx.send("Library $query doesn't exist. Available stations: `$stations`.")
+            ?: return ctx.send("Library ${ctx.cleanContent(query)} doesn't exist. Available stations: `$stations`.")
 
         val manager = Launcher.players.get(ctx.guild)
 
