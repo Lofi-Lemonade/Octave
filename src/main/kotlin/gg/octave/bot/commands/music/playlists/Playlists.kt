@@ -303,6 +303,37 @@ class Playlists : Cog {
         }
     }
 
+    @HelpGroup("General")
+    @SubCommand(description = "For use if your playlist contains invalid tracks.")
+    fun repair(ctx: Context, @Greedy name: String) {
+        val existingPlaylist = ctx.db.findCustomPlaylist(ctx.author.id, name)
+            ?: return ctx.send("You don't have any playlists with that name.")
+
+        val invalidTracks = existingPlaylist.encodedTracks.withIndex()
+            .filter { (_, track) ->
+                try {
+                    Launcher.players.playerManager.decodeAudioTrack(track)
+                    false
+                } catch (e: Exception) {
+                    true
+                }
+            }
+
+        for ((index, _) in invalidTracks) {
+            existingPlaylist.removeTrackAt(index)
+        }
+
+        existingPlaylist.save()
+        ctx.send {
+            setColor(OctaveBot.PRIMARY_COLOUR)
+            setDescription("Removed **${invalidTracks.size}** invalid tracks from your playlist.")
+        }
+
+        // TODO: Actually write a utility to convert from "new" track type to "old" track type
+        // CONT: Track metadata layout:    uri/position/thumbnail/source
+        // CONT: Required metadata layout: uri/source/position
+    }
+
     @HelpGroup("Collaboration")
     @SubCommand(aliases = ["collaborate", "col", "c"], description = "Add/remove collaborators to playlists.")
     fun collab(ctx: Context, playlistName: String, @Greedy userOrId: UserOrId?) {
